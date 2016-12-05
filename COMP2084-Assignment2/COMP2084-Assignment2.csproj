@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -160,44 +161,22 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Class.cs">
-      <DependentUpon>ClassesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ClassesModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ClassesModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ClassesModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ClassesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ClassesModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ClassesModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Class.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
+    <Compile Include="DataModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Match.cs">
-      <DependentUpon>ClassesModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Match.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Opponent.cs">
-      <DependentUpon>ClassesModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Opponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Spec.cs">
-      <DependentUpon>ClassesModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Spec.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -209,23 +188,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="ClassesModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ClassesModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="ClassesModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ClassesModel.edmx</DependentUpon>
-      <LastGenOutput>ClassesModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ClassesModel.edmx.diagram">
-      <DependentUpon>ClassesModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="ClassesModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ClassesModel.edmx</DependentUpon>
-      <LastGenOutput>ClassesModel.cs</LastGenOutput>
-    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
