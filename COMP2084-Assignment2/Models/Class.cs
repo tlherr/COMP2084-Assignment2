@@ -1,4 +1,4 @@
-namespace COMP2084_Assignment2
+namespace COMP2084_Assignment2.Models
 {
     using System;
     using System.Collections.Generic;

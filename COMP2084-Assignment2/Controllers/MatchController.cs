@@ -11,7 +11,12 @@ namespace COMP2084_Assignment2.Controllers
         // GET: Match
         public ActionResult Index()
         {
-            return View();
+            //Pull results from the matches table
+            using (Models.DataModel db = new Models.DataModel())
+            {
+                var matches = db.Matches.ToList();
+                return View(matches);
+            }
         }
     }
 }
