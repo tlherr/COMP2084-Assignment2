@@ -1,0 +1,67 @@
+﻿@model COMP2084_Assignment2.Match
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Match</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Class.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Class.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Class1.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Class1.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Map1.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Map1.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.result)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
