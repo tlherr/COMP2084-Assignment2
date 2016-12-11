@@ -8,17 +8,49 @@ using System.Web;
 using System.Web.Mvc;
 using COMP2084_Assignment2;
 using Microsoft.AspNet.Identity;
+using System.Web.Helpers;
 
 namespace COMP2084_Assignment2.Controllers
 {
+    [Authorize]
     public class MatchesController : Controller
     {
         private DatabaseModel db = new DatabaseModel();
 
+        public ActionResult getWinLossChart()
+        {
+            int wins = (from a in db.Matches
+                       where a.result.Equals(true)
+                       select a).Count();
+            int losses = (from a in db.Matches
+                        where a.result.Equals(false)
+                        select a).Count();
+
+            var myChart = new Chart(width: 1000, height: 600)
+            .AddTitle("Match Statistics")
+            .AddSeries(
+                name: "Games Won",
+                chartType: "Pie",
+                xValue: new[] { String.Concat("Wins (", (wins/(wins+losses))*100,"%)"), String.Concat("Losses (", (losses / (wins + losses)) * 100, "%)") },
+                yValues: new[] { wins, losses }
+                )
+            .Write();
+
+            String fileName = String.Concat(DateTime.Now.Ticks);
+            myChart.Save("~/Content/Charts" + fileName, "jpeg");
+
+            return base.File("~/Content/Charts" + fileName, "jpeg");
+        }
+
+
+
         // GET: Matches
         public ActionResult Index()
         {
-            var matches = db.Matches.Include(m => m.Class).Include(m => m.Class1).Include(m => m.Map1);
+            String userId = User.Identity.GetUserId();
+            var matches = db.Matches.Include(m => m.Class).Include(m => m.Class1).Include(m => m.Map1).Where(
+                m=>m.user_id == userId
+                );
             return View(matches.ToList());
         }
 
@@ -29,7 +61,8 @@ namespace COMP2084_Assignment2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Match match = db.Matches.Find(id);
+            String userId = User.Identity.GetUserId();
+            Match match = db.Matches.Single(m => m.id==id && m.user_id==userId);
             if (match == null)
             {
                 return HttpNotFound();

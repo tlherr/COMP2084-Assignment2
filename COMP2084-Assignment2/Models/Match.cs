@@ -11,25 +11,21 @@ namespace COMP2084_Assignment2
     {
         public int id { get; set; }
 
+        [Display(Name ="Win")]
         public bool result { get; set; }
 
+        [Display(Name = "Match Notes")]
         [Column(TypeName = "text")]
         public string notes { get; set; }
-
         public int map { get; set; }
-
         public int opponent_one { get; set; }
-
         public int opponent_two { get; set; }
 
         [Required]
         [StringLength(128)]
         public string user_id { get; set; }
-
         public virtual Class Class { get; set; }
-
         public virtual Class Class1 { get; set; }
-
         public virtual Map Map1 { get; set; }
     }
 }

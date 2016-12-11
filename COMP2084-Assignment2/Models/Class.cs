@@ -20,6 +20,7 @@ namespace COMP2084_Assignment2
 
         [Required]
         [StringLength(20)]
+        [Display(Name="Opponent")]
         public string name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

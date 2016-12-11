@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<COMP2084_Assignment2.Match>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Matches";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,54 +11,52 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Class.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Class1.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Map1.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.result)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_id)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Class.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Class1.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Map1.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.result)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    <thead class="thead-inverse">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Class.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class1.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Map1.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.result)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.notes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@(item.result?"success":"danger")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class1.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Map1.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.result)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.notes)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>

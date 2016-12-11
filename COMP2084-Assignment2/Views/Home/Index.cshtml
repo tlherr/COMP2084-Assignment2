@@ -5,8 +5,12 @@
 <div class="row">
         <div class="col-md-12 text-center">
             <h2>Track Matches</h2>
-            <p>
-                Tracker allows you to track matches, showing you which teams you are beating and which teams you need to practice against.
-            </p>
+                <p>
+                    Tracker allows you to track matches, showing you which teams you are beating and which teams you need to practice against.
+                </p>
+                @if (!String.IsNullOrEmpty(ViewBag.isLoggedIn))
+                {
+                    <img src="@Url.Action("getWinLossChart", "Matches")" />
+                }
         </div>
 </div>
