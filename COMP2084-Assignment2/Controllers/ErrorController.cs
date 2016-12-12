@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace COMP2084_Assignment2.Controllers
 {
+    //This controller implements our custom error handling methods. Basically we are just returning back views with some text at this point
     public class ErrorController : Controller
     {
         // GET: Error/NotFound

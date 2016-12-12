@@ -10,17 +10,24 @@ using COMP2084_Assignment2;
 using Microsoft.AspNet.Identity;
 using System.Web.Helpers;
 
+/**
+ * Main Controller manages all CRUD operations for Matches (Main data type)
+ */
 namespace COMP2084_Assignment2.Controllers
 {
+    //Force user to be authenticated to access these controller methods
     [Authorize]
     public class MatchesController : Controller
     {
         private DatabaseModel db = new DatabaseModel();
-
+       //Bonus Marks method: Using the C# charting API build a pie chart showing overall win loss percentages
+       //This image is built and send to a page with an action link image tag
+       //If there are sql problems or an attempt to divide by zero returning a 404 not found
         public ActionResult getWinLossChart()
         {
             try
             {
+                //Get the wins and losses counts from the database
                 double wins = (from a in db.Matches
                             where a.result.Equals(true)
                             select a).Count();
@@ -28,6 +35,7 @@ namespace COMP2084_Assignment2.Controllers
                               where a.result.Equals(false)
                               select a).Count();
 
+                //Add up our totals and percentages
                 double total = wins + losses;
                 double percentageWon;
                 double percentageLost;
@@ -41,7 +49,7 @@ namespace COMP2084_Assignment2.Controllers
                     percentageLost = 0;
                 }
              
-
+                //Create the chart with our data values. This chart image gets responsive class so dimensions  are not super important
                 var myChart = new Chart(width: 1000, height: 600)
                 .AddTitle("Win/Loss Percentages")
                 .AddSeries(
@@ -52,6 +60,7 @@ namespace COMP2084_Assignment2.Controllers
                     )
                 .Write();
 
+                //Stream the data into a file and return that file object back to the browser
                 String fileName = String.Concat(DateTime.Now.Ticks);
                 myChart.Save("~/Content/Charts" + fileName, "jpeg");
 
@@ -72,6 +81,7 @@ namespace COMP2084_Assignment2.Controllers
         public ActionResult Index()
         {
             String userId = User.Identity.GetUserId();
+            //Making sure to only get matches belonging to our current user ID
             var matches = db.Matches.Include(m => m.Class).Include(m => m.Class1).Include(m => m.Map1).Where(
                 m=>m.user_id == userId
                 );
@@ -86,6 +96,7 @@ namespace COMP2084_Assignment2.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             String userId = User.Identity.GetUserId();
+            //Making sure to only get matches belonging to our current user ID
             Match match = db.Matches.Single(m => m.id==id && m.user_id==userId);
             if (match == null)
             {
@@ -110,15 +121,15 @@ namespace COMP2084_Assignment2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,result,notes,map,opponent_one,opponent_two,user_id")] Match match)
         {
+            //In our data model we have to specify that user_id is not required to pass initial validation
+            //this is hacky as it is required (just not required for user to know it or enter it into the form)
+            //we are appending the user id to the match object so it can save without any problems
             match.user_id = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
                 db.Matches.Add(match);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            } else
-            {
-                ModelState.AddModelError("", "Please fix form errors");
             }
 
             ViewBag.opponent_one = new SelectList(db.Classes, "id", "name", match.opponent_one);

@@ -8,8 +8,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using COMP2084_Assignment2.Models;
 
+/**
+ * This controller manages user sign ins
+ */
 namespace COMP2084_Assignment2.Controllers
 {
+    //Force user to be authenticated before any of these controller methods are accessed
+    //Note: Some methods allow anonymous connections so a user can actually log in
     [Authorize]
     public class ManageController : Controller
     {
