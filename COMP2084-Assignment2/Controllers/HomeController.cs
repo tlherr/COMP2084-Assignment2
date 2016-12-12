@@ -12,12 +12,6 @@ namespace COMP2084_Assignment2.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            ViewBag.isLoggedIn = User.Identity.GetUserId();
-            if(!String.IsNullOrEmpty(User.Identity.GetUserId()))
-            {
-
-            }
-
             return View();
         }
     }

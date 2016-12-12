@@ -8,9 +8,5 @@
                 <p>
                     Tracker allows you to track matches, showing you which teams you are beating and which teams you need to practice against.
                 </p>
-                @if (!String.IsNullOrEmpty(ViewBag.isLoggedIn))
-                {
-                    <img src="@Url.Action("getWinLossChart", "Matches")" />
-                }
         </div>
 </div>

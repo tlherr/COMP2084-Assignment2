@@ -45,8 +45,11 @@ namespace COMP2084_Assignment2.Controllers
             } catch(System.Data.SqlClient.SqlException sqlException)
             {
                 return HttpNotFound();
+            } catch(DivideByZeroException zeroexc)
+            {
+                return HttpNotFound();
             }
-           
+
         }
 
 
@@ -99,6 +102,9 @@ namespace COMP2084_Assignment2.Controllers
                 db.Matches.Add(match);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            } else
+            {
+                ModelState.AddModelError("", "Please fix form errors");
             }
 
             ViewBag.opponent_one = new SelectList(db.Classes, "id", "name", match.opponent_one);

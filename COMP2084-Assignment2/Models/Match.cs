@@ -17,11 +17,16 @@ namespace COMP2084_Assignment2
         [Display(Name = "Match Notes")]
         [Column(TypeName = "text")]
         public string notes { get; set; }
+        [Display(Name = "Arena")]
+        [Required(ErrorMessage = "Arena is Required")]
         public int map { get; set; }
+        [Display(Name = "Opponent")]
+        [Required(ErrorMessage = "Opponent is Required")]
         public int opponent_one { get; set; }
+        [Display(Name = "Opponent")]
+        [Required(ErrorMessage = "Opponent is Required")]
         public int opponent_two { get; set; }
 
-        [Required]
         [StringLength(128)]
         public string user_id { get; set; }
         public virtual Class Class { get; set; }
