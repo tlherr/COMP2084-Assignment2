@@ -19,27 +19,34 @@ namespace COMP2084_Assignment2.Controllers
 
         public ActionResult getWinLossChart()
         {
-            int wins = (from a in db.Matches
-                       where a.result.Equals(true)
-                       select a).Count();
-            int losses = (from a in db.Matches
-                        where a.result.Equals(false)
-                        select a).Count();
+            try
+            {
+                int wins = (from a in db.Matches
+                            where a.result.Equals(true)
+                            select a).Count();
+                int losses = (from a in db.Matches
+                              where a.result.Equals(false)
+                              select a).Count();
 
-            var myChart = new Chart(width: 1000, height: 600)
-            .AddTitle("Match Statistics")
-            .AddSeries(
-                name: "Games Won",
-                chartType: "Pie",
-                xValue: new[] { String.Concat("Wins (", (wins/(wins+losses))*100,"%)"), String.Concat("Losses (", (losses / (wins + losses)) * 100, "%)") },
-                yValues: new[] { wins, losses }
-                )
-            .Write();
+                var myChart = new Chart(width: 1000, height: 600)
+                .AddTitle("Match Statistics")
+                .AddSeries(
+                    name: "Games Won",
+                    chartType: "Pie",
+                    xValue: new[] { String.Concat("Wins (", (wins / (wins + losses)) * 100, "%)"), String.Concat("Losses (", (losses / (wins + losses)) * 100, "%)") },
+                    yValues: new[] { wins, losses }
+                    )
+                .Write();
 
-            String fileName = String.Concat(DateTime.Now.Ticks);
-            myChart.Save("~/Content/Charts" + fileName, "jpeg");
+                String fileName = String.Concat(DateTime.Now.Ticks);
+                myChart.Save("~/Content/Charts" + fileName, "jpeg");
 
-            return base.File("~/Content/Charts" + fileName, "jpeg");
+                return base.File("~/Content/Charts" + fileName, "jpeg");
+            } catch(System.Data.SqlClient.SqlException sqlException)
+            {
+                return HttpNotFound();
+            }
+           
         }
 
 
