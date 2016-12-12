@@ -152,6 +152,7 @@ namespace COMP2084_Assignment2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,result,notes,map,opponent_one,opponent_two,user_id")] Match match)
         {
+            match.user_id = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
                 db.Entry(match).State = EntityState.Modified;
