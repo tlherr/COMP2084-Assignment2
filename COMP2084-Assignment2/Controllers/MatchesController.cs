@@ -21,20 +21,34 @@ namespace COMP2084_Assignment2.Controllers
         {
             try
             {
-                int wins = (from a in db.Matches
+                double wins = (from a in db.Matches
                             where a.result.Equals(true)
                             select a).Count();
-                int losses = (from a in db.Matches
+                double losses = (from a in db.Matches
                               where a.result.Equals(false)
                               select a).Count();
 
+                double total = wins + losses;
+                double percentageWon;
+                double percentageLost;
+                if(total!=0)
+                {
+                    percentageWon = (wins / total) * 100;
+                    percentageLost = (losses / total) * 100;
+                } else
+                {
+                    percentageWon = 0;
+                    percentageLost = 0;
+                }
+             
+
                 var myChart = new Chart(width: 1000, height: 600)
-                .AddTitle("Match Statistics")
+                .AddTitle("Win/Loss Percentages")
                 .AddSeries(
                     name: "Games Won",
                     chartType: "Pie",
-                    xValue: new[] { String.Concat("Wins (", (wins / (wins + losses)) * 100, "%)"), String.Concat("Losses (", (losses / (wins + losses)) * 100, "%)") },
-                    yValues: new[] { wins, losses }
+                    xValue: new[] { String.Concat("Wins (", percentageWon, "%)"), String.Concat("Losses (", percentageLost, "%)") },
+                    yValues: new[] { percentageWon, percentageLost }
                     )
                 .Write();
 

@@ -7,12 +7,12 @@
 
 <h2>Index</h2>
 
-<img src="@Url.Action("getWinLossChart", "Matches")" />
+<img src="@Url.Action("getWinLossChart", "Matches")" class="img-responsive" />
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", "Matches", null, new { @class = "btn btn-success" })
 </p>
-<table class="table">
+<table class="table table-condensed table-responsive">
     <thead class="thead-inverse">
         <tr>
             <th>
@@ -30,7 +30,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.notes)
             </th>
-            <th></th>
+            <th>Operations</th>
         </tr>
     </thead>
     <tbody>
@@ -53,9 +53,11 @@
                     @Html.DisplayFor(modelItem => item.notes)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    <div class="btn-group" role="group" aria-label="Edit Details Delete">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                    </div>
                 </td>
             </tr>
         }
